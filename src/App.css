@@ -1,5 +1,6 @@
 body{
-    background-color: #212529;
+    /* background-color: #212529; */
+    background-color: #20232b;
     color: white;
 }
 
@@ -7,8 +8,13 @@ body{
     background-color: #6200ff !important;
     font-weight: 900;
     color: white !important;
+    border: none;
 }
 .bg2:hover{
     background-color: tomato !important;
     cursor: pointer;
+}
+.cb{
+    border: 1px solid  white;
+    color: white;
 }
