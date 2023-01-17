@@ -1,20 +1,42 @@
-body{
+body {
     /* background-color: #212529; */
     background-color: #20232b;
     color: white;
 }
 
-.bg{
+.bg {
     background-color: #6200ff !important;
     font-weight: 900;
     color: white !important;
     border: none;
 }
-.bg2:hover{
+
+.bg2:hover {
     background-color: tomato !important;
     cursor: pointer;
 }
-.cb{
-    border: 1px solid  white;
+
+.cb {
+    border: 1px solid white;
     color: white;
+}
+
+.success {
+    color: green;
+    background-color: lightgreen;
+    padding: 5px;
+    height: auto;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+.error {
+    color: red;
+    background-color: pink;
+    padding: 5px;
+    height: auto;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 2px;
 }

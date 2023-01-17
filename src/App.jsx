@@ -9,41 +9,26 @@ import CreateUser from "./Components/CreateUser";
 import ShowUsers from "./Components/ShowUsers";
 import Home from "./Components/Home";
 
-
-export default class App extends Component{
+export default class App extends Component
+{
 
     view = {
-        createuser:<CreateUser/>,
-        home:<Home/>,
-        showuser:<ShowUsers/>
+        createuser: <CreateUser />,
+        home: <Home />,
+        showuser: <ShowUsers />
     }
-    render = () => {
+    render = () =>
+    {
         return (
             <React.Fragment>
-            <Header/>
-            {this.renderViews()}
-            <Footer/>
+                <Header />
+                {this.renderViews()}
+                <Footer />
             </React.Fragment>
         )
     }
-    renderViews=()=>{
+    renderViews = () =>
+    {
         return this.view[route];
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -23,7 +23,7 @@ const Home = () =>
           </main>
         </div>
         <div className="col-sm-6 mt-5 ms-0">
-          <img src="https://miro.medium.com/max/1400/1*PpTSlj9PSgB4VPEx4zEReQ.webp" alt="crud img" height={"400px"} width={"670px"}/>
+          <img src="https://miro.medium.com/max/1400/1*PpTSlj9PSgB4VPEx4zEReQ.webp" alt="crud img" height={"400px"} width={"670px"} />
         </div>
       </div>
     </div>

@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
+import { redirect } from '../Router';
 
 class CreateUser extends Component
 {
-  state = {
-    name: "",
-    email: "",
-    mobile: "",
-    password: ""
-    // users=[]
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      mobile: "",
+      password: "",
+      users: [],
+      msg: "",
+    }
   }
   render()
   {
@@ -19,6 +25,7 @@ class CreateUser extends Component
             <fieldset className='form-control bg'>
               <legend>User Register Here</legend>
               <form>
+                {this.state.msg}
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
                   <input type="text" className="form-control" id="name" placeholder="Enter Your Name." value={this.state.name} onChange={(event) =>
@@ -45,6 +52,7 @@ class CreateUser extends Component
                 </center>
               </form>
             </fieldset>
+              <a className="ms-5 nav-link btn-outline-danger btn bg2 w-50 mt-3" href="#home">🔙 Go back to Home Page</a>
           </div>
           <div className="col-sm-3"></div>
         </div>
@@ -53,27 +61,44 @@ class CreateUser extends Component
   }
   savaData = () =>
   {
-    console.clear();
-    console.log(this.state);
-
-    const url= 'http://localhost:5000/users';
-    // const url= 'https://myhisab.seeksolution.in/api/getusers.php';
-
-    let promise=fetch(url,{
-      headers:{
-        "Content-Type":"application/json",
+    const url = 'http://localhost:5000/users';
+    let promise = fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
       },
-      method:"POST",
-      body:JSON.stringify(this.state)
+      method: "POST",
+      body: JSON.stringify(this.state)
     });
 
-    promise.then((response)=>{
-      return response.json();
-    }).then((data)=>{
+    promise.then((response) =>
+    {
+      if (response.ok)
+      {
+        this.setState({
+          name: "",
+          email: "",
+          mobile: "",
+          password: "",
+          msg: <span className='success'>User Created Successfully !</span>
+        });
+        return redirect('showuser');
+      }
+    }).then((data) =>
+    {
       console.log(data)
-    }).catch((error)=>{
+    }).catch((error) =>
+    {
       console.log(error);
-    })
+      this.setState({
+        msg: <span className="error">Server is busy. Try Again Later</span>
+      });
+      setTimeout(() =>
+      {
+        this.setState({
+          msg: "",
+        });
+      }, 5000);
+    });
   }
 
 }
