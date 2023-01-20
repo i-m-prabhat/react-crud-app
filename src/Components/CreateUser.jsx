@@ -63,19 +63,6 @@ class CreateUser extends Component
   }
   savaData = () =>
   {
-    // console.clear();
-    // console.log(this.state);
-
-    // const url = 'http://localhost:5000/users';
-    // const url= 'https://myhisab.seeksolution.in/api/getusers.php';
-
-    // let newObject = {
-    //   name:this.state.name,
-    //   email:this.state.email,
-    //   password:this.state.password,
-    //   mobile:this.state.mobile,
-    // }
-
     let promise = fetch(config.LOCAL_URL, {
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +73,6 @@ class CreateUser extends Component
 
     promise.then((response) =>
     {
-      // return response.json();
       if (response.ok)
       {
         this.setState({
@@ -96,13 +82,6 @@ class CreateUser extends Component
           password: "",
           msg: <span className='success'>User Created Successfully !</span>
         });
-
-        // let ID1 = setTimeout(()=>{
-        //     this.setState({
-        //         msg:"",
-        //     });
-        // },5000);
-
         return redirect('showuser');
       }
     }).then((data) =>
@@ -114,8 +93,6 @@ class CreateUser extends Component
       this.setState({
         msg: <span className="error">Server is busy. Try Again Later</span>
       });
-
-      // let ID1 = 
       setTimeout(() =>
       {
         this.setState({
@@ -124,6 +101,5 @@ class CreateUser extends Component
       }, 5000);
     });
   }
-
 }
 export default CreateUser

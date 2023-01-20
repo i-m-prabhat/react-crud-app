@@ -21,16 +21,11 @@ export default class ShowUsers extends Component
     };
 
   }
-
   componentDidMount()
   {
-
-    console.log('This is Update state : 2nd Cycle');
-    const url = 'http://localhost:5000/users/';
-
+    // console.log('This is Update state : 2nd Cycle');
     /************Start of Promise Fetch Api ***************/
-
-    let promise = fetch(url);
+    let promise = fetch(config.LOCAL_URL);
     promise.then((response) =>
     {
       return response.json();
@@ -39,23 +34,17 @@ export default class ShowUsers extends Component
       //Object Json
       if (Array.isArray(data))
       {
-        console.log('chal rha hai');
-
+        // console.log('chal rha hai');
         this.setState({
           users: data
         })
       }
-
     }).catch((error) =>
     {
       console.log(error);
     })
-
     /************End of Promise Fetch Api ***************/
-
-
   }
-
   componentWillMount()
   {
     console.log("Unmounted is 3rd cycle");
@@ -76,7 +65,7 @@ export default class ShowUsers extends Component
                   <th className='bg'>Name</th>
                   <th className='bg'>Email</th>
                   <th className='bg'>Mobile</th>
-                   <th className='bg'>Password</th>
+                  <th className='bg'>Password</th>
                   <th className='bg'>Edit</th>
                   <th className='bg'>Delete</th>
                 </tr>
@@ -94,7 +83,6 @@ export default class ShowUsers extends Component
   }
   getRecords = () =>
   {
-
     return this.state.users.map((item, index) =>
     {
       return (
@@ -104,8 +92,6 @@ export default class ShowUsers extends Component
           <td>{item.email}</td>
           <td>{item.mobile}</td>
           <td>{item.password}</td>
-          {/* <td><a href={"#edit/"+item.id}>Edit</a></td>
-				<td><a href={"#delete/"+item.id}>Delete</a></td> */}
           <td><button type="button" className='bg bg2' onClick={() => { this.editUser(item.id) }}>Edit</button></td>
           <td>
             <button type="button" className='bg bg2'
@@ -123,8 +109,7 @@ export default class ShowUsers extends Component
     if (window.confirm('Are you sure to delete?'))
     {
       //fetch api
-      console.log(id);
-      // const url = 'http://localhost:5000/users/' + id;
+      // console.log(id);
       let promise = fetch(config.LOCAL_URL + id, {
         headers: {
           "Content-Type": "application/json",
@@ -162,7 +147,6 @@ export default class ShowUsers extends Component
           msg: <span className="error">OOps Try Again Later</span>
         });
 
-        // let ID1 = 
         setTimeout(() =>
         {
           this.setState({

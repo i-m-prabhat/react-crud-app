@@ -66,18 +66,15 @@ export default class EditUser extends Component
     {
 
         let id = this.props.userId;
-        //    let promise = 
+        //promise 
         fetch(config.LOCAL_URL + id).then((response) =>
         {
-
             if (response.ok)
             {
                 return response.json();
             }
-
         }).then((data) =>
         {
-
             this.setState({
                 name: data.name,
                 email: data.email,
@@ -91,7 +88,6 @@ export default class EditUser extends Component
         });
 
     }
-
     updateData = () =>
     {
 
@@ -105,7 +101,7 @@ export default class EditUser extends Component
 
         console.log(config);
         //console.log(process.env);
-        //    let promise = 
+        //    promise 
         fetch(config.LOCAL_URL + id, {
             headers: {
                 "Content-Type": "application/json"
