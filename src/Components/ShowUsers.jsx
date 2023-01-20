@@ -1,46 +1,64 @@
 import React, { Component } from 'react'
 import { redirect } from '../Router';
+import config from "./config/config.json"
 
 export default class ShowUsers extends Component
 {
+  //mounting state 
   constructor(props)
   {
-    console.log("This is mounting state : 1st Cycle");
+
+    console.log('This is mouting state : 1st Cycle');
     super(props);
+
     this.state = {
       name: "",
       email: "",
       mobile: "",
       password: "",
       users: [],
-      msg: "",
+      msg: ""
     };
+
   }
+
   componentDidMount()
   {
+
     console.log('This is Update state : 2nd Cycle');
-    const url = 'http://localhost:5000/users';
+    const url = 'http://localhost:5000/users/';
+
+    /************Start of Promise Fetch Api ***************/
+
     let promise = fetch(url);
     promise.then((response) =>
     {
       return response.json();
     }).then((data) =>
     {
+      //Object Json
       if (Array.isArray(data))
       {
+        console.log('chal rha hai');
+
         this.setState({
           users: data
         })
       }
+
     }).catch((error) =>
     {
       console.log(error);
     })
+
+    /************End of Promise Fetch Api ***************/
+
+
   }
 
-  componentWillUnmount()
+  componentWillMount()
   {
-    console.log("Unmount State: 3rd Cycle")
+    console.log("Unmounted is 3rd cycle");
   }
 
   render = () =>
@@ -58,8 +76,8 @@ export default class ShowUsers extends Component
                   <th className='bg'>Name</th>
                   <th className='bg'>Email</th>
                   <th className='bg'>Mobile</th>
-                  <th className='bg'>Password</th>
-                  <th className='bg'>Edite</th>
+                   <th className='bg'>Password</th>
+                  <th className='bg'>Edit</th>
                   <th className='bg'>Delete</th>
                 </tr>
               </thead>
@@ -76,19 +94,22 @@ export default class ShowUsers extends Component
   }
   getRecords = () =>
   {
+
     return this.state.users.map((item, index) =>
     {
       return (
         <tr key={item.id}>
           <td>{item.id}</td>
           <td>{item.name}</td>
-          <td>{item.mobile}</td>
           <td>{item.email}</td>
+          <td>{item.mobile}</td>
           <td>{item.password}</td>
-          <td><button className='bg bg2' type="button">Edit</button></td>
+          {/* <td><a href={"#edit/"+item.id}>Edit</a></td>
+				<td><a href={"#delete/"+item.id}>Delete</a></td> */}
+          <td><button type="button" className='bg bg2' onClick={() => { this.editUser(item.id) }}>Edit</button></td>
           <td>
-            <button className='bg bg2' type="button"
-              onClick={() => { this.deleteUser(item.id) }}>
+            <button type="button" className='bg bg2'
+              onClick={() => { this.deleteUser(item.id, index) }}>
               Delete
             </button>
           </td>
@@ -97,14 +118,14 @@ export default class ShowUsers extends Component
     })
   }
 
-  deleteUser = (id) =>
+  deleteUser = (id, index) =>
   {
     if (window.confirm('Are you sure to delete?'))
     {
       //fetch api
       console.log(id);
-      const url = 'http://localhost:5000/users/' + id;
-      let promise = fetch(url, {
+      // const url = 'http://localhost:5000/users/' + id;
+      let promise = fetch(config.LOCAL_URL + id, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -114,15 +135,25 @@ export default class ShowUsers extends Component
       {
         if (response.ok)
         {
+          let userData = [...this.state.users];
+          userData.splice(index, 1);
+
           this.setState({
+            users: userData,
             msg: <span className="success">User Deleted Successfully</span>
           });
+
+          setTimeout(() =>
+          {
+            this.setState({
+              msg: ""
+            });
+          }, 3000);
           return redirect('showuser');
         }
       }).then((data) =>
       {
         console.log(data)
-
       }).catch((error) =>
       {
         console.log(error);
@@ -141,5 +172,9 @@ export default class ShowUsers extends Component
       });
     }
   }
-
+  editUser = (id) =>
+  {
+    //	console.log(id);
+    return redirect('edituser/' + id);
+  }
 }

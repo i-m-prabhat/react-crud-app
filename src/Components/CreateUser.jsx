@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { redirect } from '../Router';
-
+import config from "./config/config.json"
 class CreateUser extends Component
 {
+  //lifecycle : mounting state
+
   constructor(props)
   {
     super(props);
@@ -52,7 +54,7 @@ class CreateUser extends Component
                 </center>
               </form>
             </fieldset>
-              <a className="ms-5 nav-link btn-outline-danger btn bg2 w-50 mt-3" href="#home">🔙 Go back to Home Page</a>
+            <a className="ms-5 nav-link btn-outline-danger btn bg2 w-50 mt-3" href="#home">🔙 Go back to Home Page</a>
           </div>
           <div className="col-sm-3"></div>
         </div>
@@ -61,8 +63,20 @@ class CreateUser extends Component
   }
   savaData = () =>
   {
-    const url = 'http://localhost:5000/users';
-    let promise = fetch(url, {
+    // console.clear();
+    // console.log(this.state);
+
+    // const url = 'http://localhost:5000/users';
+    // const url= 'https://myhisab.seeksolution.in/api/getusers.php';
+
+    // let newObject = {
+    //   name:this.state.name,
+    //   email:this.state.email,
+    //   password:this.state.password,
+    //   mobile:this.state.mobile,
+    // }
+
+    let promise = fetch(config.LOCAL_URL, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -72,6 +86,7 @@ class CreateUser extends Component
 
     promise.then((response) =>
     {
+      // return response.json();
       if (response.ok)
       {
         this.setState({
@@ -81,6 +96,13 @@ class CreateUser extends Component
           password: "",
           msg: <span className='success'>User Created Successfully !</span>
         });
+
+        // let ID1 = setTimeout(()=>{
+        //     this.setState({
+        //         msg:"",
+        //     });
+        // },5000);
+
         return redirect('showuser');
       }
     }).then((data) =>
@@ -92,6 +114,8 @@ class CreateUser extends Component
       this.setState({
         msg: <span className="error">Server is busy. Try Again Later</span>
       });
+
+      // let ID1 = 
       setTimeout(() =>
       {
         this.setState({

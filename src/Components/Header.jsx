@@ -20,7 +20,7 @@ export default class Header extends Component
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link bg bg2" href="#showuser">Show Users</a>
-                            </li>
+                            </li>                           
                         </ul>
                     </div>
                 </div>
