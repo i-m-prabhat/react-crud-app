@@ -6,7 +6,7 @@ And Modify/edit the details also we can delete the user data
 here i use json-server to store user data.
 
 ## demo url 
-https://prabhat-react-rcud.netlify.app/#home
+https://prabhat-react-rcud.netlify.app/
 
 ## Snapshots 
 
